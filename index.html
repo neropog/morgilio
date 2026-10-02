@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <meta name="description" content="Simulação local de uma interface inspirada no YouTube, feita para entretenimento pessoal.">
+    <title>YouTube</title>
+    <link rel="icon" href="https://www.youtube.com/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ================= CABEÇALHO ================= -->
+    <header class="header">
+        <div class="header-left">
+            <button class="icon-btn" id="menuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+            <a class="logo" href="#/" aria-label="YouTube - página inicial">
+                <i class="fab fa-youtube yt-icon"></i>
+                <span>YouTube</span><sup>BR</sup>
+            </a>
+        </div>
+
+        <div class="header-center">
+            <div class="search-wrap">
+                <form class="search-bar" id="searchForm" role="search">
+                    <input type="text" id="searchInput" placeholder="Pesquisar" autocomplete="off" aria-label="Pesquisar">
+                    <button type="submit" class="search-btn" aria-label="Pesquisar"><i class="fas fa-magnifying-glass"></i></button>
+                </form>
+                <ul class="suggest" id="suggest"></ul>
+            </div>
+            <button class="mic-btn" id="micBtn" aria-label="Pesquisar por voz"><i class="fas fa-microphone"></i></button>
+        </div>
+
+        <div class="header-right">
+            <div class="menu-wrap">
+                <button class="icon-btn" data-menu="menuCreate" aria-label="Criar"><i class="fas fa-video"></i><i class="fas fa-plus plus-badge"></i></button>
+                <div class="menu" id="menuCreate">
+                    <button class="menu-item" data-action="upload"><i class="fas fa-upload"></i>Enviar vídeo ou foto</button>
+                    <button class="menu-item" data-action="upload-short"><i class="fas fa-bolt"></i>Publicar um Short</button>
+                    <button class="menu-item" data-action="new-channel"><i class="fas fa-user-plus"></i>Criar canal</button>
+                    <button class="menu-item" data-action="live"><i class="fas fa-tower-broadcast"></i>Transmitir ao vivo</button>
+                </div>
+            </div>
+
+            <div class="menu-wrap">
+                <button class="icon-btn" data-menu="menuNotif" aria-label="Notificações">
+                    <i class="fas fa-bell"></i><span class="badge" id="notifBadge">0</span>
+                </button>
+                <div class="menu menu-notif" id="menuNotif">
+                    <div class="menu-title">Notificações</div>
+                    <div id="notifList"></div>
+                </div>
+            </div>
+
+            <div class="menu-wrap">
+                <button class="profile-pic" id="meBtn" data-menu="menuProfile" aria-label="Conta">V</button>
+                <div class="menu" id="menuProfile">
+                    <div class="menu-user">
+                        <div class="profile-pic static" id="meBig">V</div>
+                        <div><b>Você</b><br><small id="meHandle">@voce</small></div>
+                    </div>
+                    <hr>
+                    <a class="menu-item" href="#/studio"><i class="fas fa-gear"></i>YouTube Studio</a>
+                    <button class="menu-item" data-action="rename"><i class="fas fa-pen"></i>Alterar meu nome nos comentários</button>
+                    <button class="menu-item" data-action="theme"><i class="fas fa-moon" id="themeIcon"></i><span id="themeLabel">Aparência: tema escuro</span></button>
+                    <button class="menu-item" data-action="reset"><i class="fas fa-eraser"></i>Limpar histórico e preferências</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= BARRA LATERAL ================= -->
+    <aside class="sidebar" id="sidebar">
+        <div class="drawer-head">
+            <button class="icon-btn" id="drawerClose" aria-label="Fechar menu"><i class="fas fa-bars"></i></button>
+            <a class="logo" href="#/"><i class="fab fa-youtube yt-icon"></i><span>YouTube</span><sup>BR</sup></a>
+        </div>
+
+        <a class="nav-item" data-key="" href="#/"><i class="fas fa-house"></i><span>Início</span></a>
+        <a class="nav-item" data-key="shorts" href="#/shorts"><i class="fas fa-bolt"></i><span>Shorts</span></a>
+        <a class="nav-item" data-key="subscriptions" href="#/subscriptions"><i class="fas fa-circle-play"></i><span>Inscrições</span></a>
+        <a class="nav-item mini-only" data-key="history" href="#/history"><i class="fas fa-user-circle"></i><span>Você</span></a>
+
+        <div class="full-only">
+            <hr>
+            <h4 class="nav-title">Você</h4>
+            <a class="nav-item" data-key="history" href="#/history"><i class="fas fa-clock-rotate-left"></i><span>Histórico</span></a>
+            <a class="nav-item" data-key="watchlater" href="#/watchlater"><i class="fas fa-clock"></i><span>Assistir mais tarde</span></a>
+            <a class="nav-item" data-key="liked" href="#/liked"><i class="fas fa-thumbs-up"></i><span>Vídeos que gostei</span></a>
+            <a class="nav-item" data-key="studio" href="#/studio"><i class="fas fa-gear"></i><span>Studio</span></a>
+            <hr>
+            <h4 class="nav-title">Canais</h4>
+            <div id="sideChannels"></div>
+            <hr>
+            <h4 class="nav-title">Explorar</h4>
+            <a class="nav-item" data-key="trending" href="#/trending"><i class="fas fa-fire"></i><span>Em alta</span></a>
+            <div id="sideCats"></div>
+            <hr>
+            <p class="side-foot">Brincadeira feita com carinho.<br>Nenhuma relação com o YouTube de verdade.</p>
+        </div>
+    </aside>
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- ================= PÁGINAS (renderizadas pelo script.js) ================= -->
+    <main class="content" id="app" tabindex="-1"></main>
+
+    <!-- Voz, modal e avisos -->
+    <div class="voice" id="voice">
+        <div class="voice-box">
+            <p id="voiceText">Ouvindo…</p>
+            <div class="mic-pulse"><i class="fas fa-microphone"></i></div>
+            <small>Toque para cancelar</small>
+        </div>
+    </div>
+    <div id="modalRoot"></div>
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
